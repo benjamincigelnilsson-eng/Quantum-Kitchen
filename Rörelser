@@ -1,1 +1,16 @@
+using UnityEngine;
+
+public class PlayerMovement : MonoBehaviour
+{
+    public float speed = 5f; // Hur snabbt spelaren rör sig
+
+    void Update()
+    {
+        // Hämta inmatning (A/D eller piltangenter)
+        float moveX = Input.GetAxisRaw("Horizontal");
+
+        // Flytta spelaren
+        transform.position += new Vector3(moveX, 0f, 0f) * speed * Time.deltaTime;
+    }
+}
 
