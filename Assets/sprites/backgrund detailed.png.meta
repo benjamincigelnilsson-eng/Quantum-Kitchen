@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: dd501b59a048a9f4eb01c9ac5b1b2fc4
+guid: 8c3bc386472e9fc449953587197781d9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2863959778521798171
-    second: walk_2_0
+      213: -5167392665674755837
+    second: backgrund detailed_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -47,11 +47,11 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
-  spriteExtrude: 4
+  spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 160
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,23 +100,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: walk_2_0
+      name: backgrund detailed_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 197
         y: 0
-        width: 31
-        height: 64
+        width: 22
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b165cc1ae34deb720800000000000000
-      internalID: 2863959778521798171
+      spriteID: 3015f73afbbb948b0800000000000000
+      internalID: -5167392665674755837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: backgrund detailed_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 224
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f055641ca30adb4fba9ba06d3c47565
+      internalID: 570561162
       vertices: []
       indices: 
       edges: []
@@ -125,7 +147,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 2b6f592bb82205549b4a7f5f05af9e21
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +157,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      walk_2_0: 2863959778521798171
+      backgrund detailed_0: -5167392665674755837
+      backgrund detailed_1: 570561162
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
