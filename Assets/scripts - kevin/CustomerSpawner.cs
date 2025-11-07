@@ -4,7 +4,7 @@ public class CustomerSpawner : MonoBehaviour
 {
     [Header("Inställningar")]
     public GameObject[] customerPrefabs;   // lägg 2–3 olika Customer-prefabs här
-    public Transform spawnPoint;           // var de dyker upp
+    public Transform spawnPoint;           // var de dyker/spawnar upp
     public float spawnDelay = 2f;          // paus mellan kunder (sekunder)
 
     private GameObject currentCustomer;
