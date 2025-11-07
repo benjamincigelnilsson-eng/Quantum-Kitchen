@@ -1,52 +1,44 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class Customer : MonoBehaviour, IInteractable
 {
-    public Dish chickenDish;         // dra in dina ScriptableObjects i Inspector
+    [Header("MatrÃ¤tter")]
+    public Dish chickenDish;
     public Dish octopusDish;
 
-    public Dish wanted;              // vad kunden vill ha (slumpas)
-    bool hasOrdered = false;         // har kunden beställt än?
+    [Header("Utseende (sprites)")]
+    public Sprite[] possibleSprites; // dra in 2â€“10 olika kundbilder hÃ¤r
+
+    private Dish wanted;
+    private bool hasOrdered = false;
+    private bool gotFood = false;
 
     void Start()
     {
-        // Välj slumpmässigt vad kunden vill ha (om inget redan är satt)
-        if (wanted == null)
-        {
-            Dish[] options = new Dish[] { chickenDish, octopusDish };
-            wanted = options[Random.Range(0, options.Length)];
-        }
+        // Slumpa sprite
+        var sr = GetComponent<SpriteRenderer>();
+        if (sr != null && possibleSprites != null && possibleSprites.Length > 0)
+            sr.sprite = possibleSprites[Random.Range(0, possibleSprites.Length)];
+
+        // Slumpa bestÃ¤llning
+        Dish[] options = { chickenDish, octopusDish };
+        wanted = options[Random.Range(0, options.Length)];
     }
 
-    // Kallas när spelaren trycker E och står nära (från PlayerInteractor)
     public void Interact(GameObject playerGO)
     {
-        var held = playerGO.GetComponent<HeldItem>(); // vad spelaren bär
+        var held = playerGO.GetComponent<HeldItem>();
 
-        if (!hasOrdered)
+        if (!hasOrdered) { hasOrdered = true; Debug.Log("[Customer] BestÃ¤ller: " + wanted.dishName); return; }
+        if (!gotFood)
         {
-            hasOrdered = true;
-            Debug.Log($"Kund beställer: {wanted.dishName}");
-            // här kommer vi senare: visa bubblan
-            return;
-        }
+            if (held == null || !held.HasDish) { Debug.Log("[Customer] Du hÃ¥ller ingen mat."); return; }
 
-        // Hit kommer vi när kunden väntar på mat
-        if (held == null || !held.HasDish)
-        {
-            Debug.Log("Du håller ingen mat ännu.");
-            return;
-        }
+            bool sameAsset = held.carried == wanted;
+            bool sameName = held.carried != null && wanted != null && held.carried.dishName == wanted.dishName;
 
-        if (held.carried == wanted)
-        {
-            Debug.Log($"Rätt mat! {wanted.dishName}. Kunden går.");
-            held.Clear();                 // spelaren lämnar ifrån sig maten
-            Destroy(gameObject, 0.1f);    // kunden försvinner (sen kan spawner kalla nästa)
-        }
-        else
-        {
-            Debug.Log("Fel mat. Testa igen.");
+            if (sameAsset || sameName) { gotFood = true; held.Clear(); Destroy(gameObject, 0.5f); }
+            else Debug.Log("[Customer] Fel mat. Ville ha: " + wanted.dishName);
         }
     }
 }

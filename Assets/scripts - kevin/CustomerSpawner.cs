@@ -1,15 +1,14 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class CustomerSpawner : MonoBehaviour
 {
     [Header("Inställningar")]
-    public GameObject customerPrefab;  // Dra in din Customer.prefab här
-    public Transform spawnPoint;       // Dra in ett objekt där kunderna ska dyka upp
-    public float spawnDelay = 2f;      // Paus mellan kunder (sekunder)
+    public GameObject[] customerPrefabs;   // lägg 2–3 olika Customer-prefabs här
+    public Transform spawnPoint;           // var de dyker upp
+    public float spawnDelay = 2f;          // paus mellan kunder (sekunder)
 
     private GameObject currentCustomer;
-    private bool isSpawning = false;
+    private float timer = 0f;
 
     void Start()
     {
@@ -18,30 +17,28 @@ public class CustomerSpawner : MonoBehaviour
 
     void Update()
     {
-        // Om ingen kund finns och vi inte redan håller på att spawna → skapa ny
-        if (currentCustomer == null && !isSpawning)
+        // Vänta tills kunden är borta, räkna upp tid, spawna ny efter delay
+        if (currentCustomer == null)
         {
-            StartCoroutine(SpawnAfterDelay());
+            timer += Time.deltaTime;
+            if (timer >= spawnDelay)
+            {
+                SpawnNewCustomer();
+                timer = 0f;
+            }
         }
-    }
-
-    IEnumerator SpawnAfterDelay()
-    {
-        isSpawning = true;
-        yield return new WaitForSeconds(spawnDelay);
-        SpawnNewCustomer();
-        isSpawning = false;
     }
 
     void SpawnNewCustomer()
     {
-        if (customerPrefab == null || spawnPoint == null)
+        if (spawnPoint == null || customerPrefabs == null || customerPrefabs.Length == 0)
         {
-            Debug.LogWarning("[Spawner] Saknar prefab eller spawn point!");
+            Debug.LogWarning("[Spawner] Saknar spawnPoint eller customerPrefabs.");
             return;
         }
 
-        currentCustomer = Instantiate(customerPrefab, spawnPoint.position, Quaternion.identity);
-        Debug.Log("[Spawner] Spawnade ny kund: " + currentCustomer.name);
+        int i = Random.Range(0, customerPrefabs.Length);
+        currentCustomer = Instantiate(customerPrefabs[i], spawnPoint.position, Quaternion.identity);
+        Debug.Log("[Spawner] Spawnade: " + customerPrefabs[i].name);
     }
 }
